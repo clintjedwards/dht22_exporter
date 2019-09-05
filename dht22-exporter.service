@@ -1,0 +1,9 @@
+[Unit]
+Description=dht22 prometheus exporter
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/dht22_exporter.py 4 2
+
+[Install]
+WantedBy=default.target
