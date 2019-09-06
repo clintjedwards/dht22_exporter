@@ -26,10 +26,10 @@ dht22_humidity 48.8
     * The one linked above comes with built in resistor
 
 ### Install on Linux
-* Copy the python file to some where in your path. I did `/usr/local/bin`
-* Assuming you're using systemd, copy the service file to /etc/systemd/system and daemon-reload systemd. You might want to also enable the service so that it persists after a reboot.
+* Copy the python file to some where in your path. ex: `/usr/local/bin`
+* Assuming the use of systemd, copy the service file to /etc/systemd/system and daemon-reload systemd. You might want to also enable the service so that it persists after a reboot.
 * If you're not running systemd, figure out a way to run the python file continuously (through screen, as a service, etc).
-* Start the dht22-exporter service.
+* Start the dht22-exporter service and point prometheus at port 8001.
 
 ### Known Issues
 * The sensor sometimes gives wildly inaccurate readings (5000% humidity), this should be mitigated by some checks in the code, but ~1% of sensor readings may not be even close to accurate.
