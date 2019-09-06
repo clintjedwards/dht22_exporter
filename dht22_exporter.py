@@ -28,12 +28,17 @@ def read_sensor():
 
     humidity, temperature = Adafruit_DHT.read_retry(SENSOR, pin)
 
-    if humidity is not None and temperature is not None:
-        dht22_humidity.set('{0:0.1f}'.format(humidity))
-        dht22_temperature_fahrenheit.set(
-            '{0:0.1f}'.format(9.0/5.0 * temperature + 32))
-        dht22_temperature_celsius.set(
-            '{0:0.1f}'.format(temperature))
+    if humidity is None or temperature is None:
+        return
+
+    if humidity > 200 or temperature > 200:
+        return
+
+    dht22_humidity.set('{0:0.1f}'.format(humidity))
+    dht22_temperature_fahrenheit.set(
+        '{0:0.1f}'.format(9.0/5.0 * temperature + 32))
+    dht22_temperature_celsius.set(
+        '{0:0.1f}'.format(temperature))
 
 
 def main():
