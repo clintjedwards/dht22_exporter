@@ -9,7 +9,6 @@ import time
 
 import Adafruit_DHT
 
-from typing import Dict
 from prometheus_client import start_http_server, Gauge
 
 # Create a metric to track time spent and requests made.
