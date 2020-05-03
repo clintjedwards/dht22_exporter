@@ -7,9 +7,9 @@
 import sys
 import time
 
-import Adafruit_DHT
+from prometheus_client import Gauge, start_http_server
 
-from prometheus_client import start_http_server, Gauge
+import Adafruit_DHT
 
 # Create a metric to track time spent and requests made.
 dht22_temperature_celsius = Gauge(

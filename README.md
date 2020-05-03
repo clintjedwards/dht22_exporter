@@ -2,7 +2,10 @@
 
 The DHT22 is a cheap "DIY" sensor for microcontrollers (arduino, rpi)
 
+This repository creates a prometheus exporter so that metrics can be collected and displayed.
+
 ![Grafana graph of metrics collected](https://i.imgur.com/m7eCUPh.png)
+View above dashboard json [here.](./grafana.json)
 
 ## Example of exported metrics
 
@@ -21,19 +24,22 @@ dht22_humidity 48.8
 
 ## Local Testbed
 
-* Raspberry pi 3
-* [DHT22 Sensor](https://amzn.to/2m3Qelh)
-    * The one linked above comes with built in resistor
+- Raspberry pi 3
+- [DHT22 Sensor](https://amzn.to/2m3Qelh)
+  - The one linked above comes with built in resistor
 
-### Install on Linux
-* Copy the python file to some where in your path. ex: `/usr/local/bin`
-* Go to this path and install dependancies: `sudo pip install -r requirements.txt`
-* Assuming the use of systemd, copy the service file to /etc/systemd/system and daemon-reload systemd. You might want to also enable the service so that it persists after a reboot.
-* If you're not running systemd, figure out a way to run the python file continuously (through screen, as a service, etc).
-* Start the dht22-exporter service and point prometheus at port 8001.
+### Install on Raspbian
+
+- Copy the python file to the path you want to keep it. ex: `/usr/local/bin`
+- Go to that path and install dependencies: `sudo pip3 install -r requirements.txt`
+- Assuming the use of systemd, copy the service file at [dht22-exporter.service](./dht22-exporter.service) to /etc/systemd/system and daemon-reload systemd. You might want to also enable the service so that it persists after a reboot: `sudo systemctl enable dht22-exporter.service`.
+- In this service file some default values for the pin and polling rate `Ex: ./dht22_exporter 4 2`, change these values to align with what ever your board setup is.
+- If you're not running systemd, figure out a way to run the python file continuously (through screen, as a service, etc).
+- Start the dht22-exporter service and point prometheus at port 8001.
 
 ### Known Issues
-* The sensor sometimes gives wildly inaccurate readings (5000% humidity), this should be mitigated by some checks in the code, but ~1% of sensor readings may not be even close to accurate.
+
+- The sensor sometimes gives wildly inaccurate readings (5000% humidity), this should be mitigated by some checks in the code, but ~1% of sensor readings may not be even close to accurate.
 
 ## Authors
 
