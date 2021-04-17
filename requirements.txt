@@ -1,2 +1,3 @@
-prometheus_client Adafruit_DHT
+prometheus_client
+Adafruit_DHT
 
