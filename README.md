@@ -32,7 +32,7 @@ dht22_humidity 48.8
 
 - Copy the python file to the path you want to keep it. ex: `/usr/local/bin`
 - Go to that path and install dependencies: `sudo pip3 install -r requirements.txt`
-- Assuming the use of systemd, copy the service file at [dht22-exporter.service](./dht22-exporter.service) to /etc/systemd/system and daemon-reload systemd. You might want to also enable the service so that it persists after a reboot: `sudo systemctl enable dht22-exporter.service`.
+- Assuming the use of systemd, copy the service file at [dht22-exporter.service](./dht22-exporter.service) to /etc/systemd/system and daemon-reload systemd via `sudo systemctl daemon-reload`. You might want to also enable the service so that it persists after a reboot: `sudo systemctl enable dht22-exporter.service`.
 - In this service file some default values for the pin and polling rate `Ex: ./dht22_exporter 4 2`, change these values to align with what ever your board setup is.
 - If you're not running systemd, figure out a way to run the python file continuously (through screen, as a service, etc).
 - Start the dht22-exporter service and point prometheus at port 8001.
