@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Prometheus exporter for DHT22 running on raspberrypi
 # Usage: ./dht22_exporter <pin_number> <poll_time_in_seconds>
