@@ -53,7 +53,7 @@ def main():
 
     while True:
         read_sensor(pin=args.gpio)
-        time.sleep(int(args.interval))
+        time.sleep(args.interval)
 
 
 main()
