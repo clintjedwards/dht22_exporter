@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 # Prometheus exporter for DHT22 running on raspberrypi
-# Usage: ./dht22_exporter <pin_number> <poll_time_in_seconds>
-# Ex: ./dht22_exporter 4 2
+# Usage: ./dht22_exporter -g <gpio_pin_number> -i <poll_time_in_seconds> [-p <exposed_port>]
+# Ex: ./dht22_exporter -g 4 -i 2
 
-import sys
 import time
+import argparse
 
 from prometheus_client import Gauge, start_http_server
 
@@ -22,9 +22,7 @@ dht22_humidity = Gauge(
 SENSOR = Adafruit_DHT.DHT22
 
 
-def read_sensor():
-    pin = sys.argv[1]
-
+def read_sensor(pin):
     humidity, temperature = Adafruit_DHT.read_retry(SENSOR, pin)
 
     if humidity is None or temperature is None:
@@ -41,11 +39,21 @@ def read_sensor():
 
 
 def main():
-    start_http_server(8001)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-g", "--gpio", dest="gpio", type=int, 
+                        required=True, help="GPIO pin number on which the sensor is plugged in")
+    parser.add_argument("-i", "--interval", dest="interval", type=int, 
+                        required=True, help="Interval sampling time, in seconds")
+    parser.add_argument("-p", "--port", dest="port", type=int, default=8001, 
+                        required=False, help="Port that will be exposed")
+
+    args = parser.parse_args()
+
+    start_http_server(args.port)
 
     while True:
-        read_sensor()
-        time.sleep(int(sys.argv[2]))
+        read_sensor(pin=args.gpio)
+        time.sleep(args.interval)
 
 
 main()
