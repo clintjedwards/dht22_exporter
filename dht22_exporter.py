@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Prometheus exporter for DHT22 running on raspberrypi
-# Usage: ./dht22_exporter -g <gpio_pin_number> -i <poll_time_in_seconds> [-p <exposed_port>]
+# Usage: ./dht22_exporter -g <gpio_pin_number> -i <poll_time_in_seconds> [-a <exposed_address> -p <exposed_port>]
 # Ex: ./dht22_exporter -g 4 -i 2
 
 import time
@@ -40,16 +40,21 @@ def read_sensor(pin):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-g", "--gpio", dest="gpio", type=int, 
+    parser.add_argument("-g", "--gpio", dest="gpio", type=int,
                         required=True, help="GPIO pin number on which the sensor is plugged in")
-    parser.add_argument("-i", "--interval", dest="interval", type=int, 
+    parser.add_argument("-a", "--address", dest="addr", type=str, default=None,
+                        required=False, help="Address that will be exposed")
+    parser.add_argument("-i", "--interval", dest="interval", type=int,
                         required=True, help="Interval sampling time, in seconds")
-    parser.add_argument("-p", "--port", dest="port", type=int, default=8001, 
+    parser.add_argument("-p", "--port", dest="port", type=int, default=8001,
                         required=False, help="Port that will be exposed")
 
     args = parser.parse_args()
 
-    start_http_server(args.port)
+    if args.addr is not None:
+        start_http_server(args.port, args.addr)
+    else:
+        start_http_server(args.port)
 
     while True:
         read_sensor(pin=args.gpio)
