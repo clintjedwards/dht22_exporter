@@ -1,3 +1,9 @@
-prometheus_client
-Adafruit_DHT
-ConfigArgParse
+Adafruit-Blinka==6.20.1
+adafruit-circuitpython-dht==3.7.0
+Adafruit-PlatformDetect==3.19.4
+Adafruit-PureIO==1.1.9
+prometheus-client==0.13.1
+pyftdi==0.53.3
+pyserial==3.5
+pyusb==1.2.1
+RPi.GPIO==0.7.0
