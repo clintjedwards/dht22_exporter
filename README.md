@@ -7,6 +7,12 @@ This repository creates a prometheus exporter so that metrics can be collected a
 ![Grafana graph of metrics collected](https://i.imgur.com/m7eCUPh.png)
 View above dashboard json [here.](./grafana.json)
 
+## Project Status
+
+**This project is abandoned**. I don't write python anymore and don't work enough with the rpis strewn about my house to keep the motivation to keep updating things.
+
+Please fork or migrate to more maintained repos.
+
 ## Example of exported metrics
 
 ```
